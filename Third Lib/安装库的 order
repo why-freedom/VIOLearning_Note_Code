@@ -1,0 +1,91 @@
+
+######配置opencv3.4.3及其扩展库
+
+1.
+mkdir release
+
+2.
+cmake -D CMAKE_BUILD_TYPE=RELEASE -DBUILD_TIFF=ON -DCMAKE_INSTALL_PREFIX=/usr/local PYTHON3_EXECUTABLE=/usr/bin/python3.5 PYTHON_INCLUDE_DIR=/usr/include/python3.5 PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so -D OPENCV_EXTRA_MODULES_PATH=../opencv_contrib-3.4.3/modules ..
+
+3.
+sudo make 
+
+4.
+sudo make install
+
+{
+//切换版本
+CMAKE_MINIMUM_REQUIRED( VERSION 2.8)
+PROJECT(useOpenCV)
+set(OpenCV_DIR "usr/local/share/OpenCV") // 设置opencv路径来切换版本
+FIND_PACKAGE(OpenCV REQUIRED)
+INCLUDE_DIRECTORIES(${OpenCV_INCLUDE_DIRS})
+add_executable(useOpenCV useOpenCV.cpp)
+TARGET_LINK_LIBRARIES(useOpenCV ${OpenCV_LIBRARIES})
+
+}
+
+######配置g2o库
+
+1.
+git clone https://github.com/PointCloudLibrary/pcl.git 
+
+2.
+sudo apt-get update
+sudo apt-get install git build-essential linux-libc-dev
+sudo apt-get install cmake cmake-gui 
+sudo apt-get install libusb-1.0-0-dev libusb-dev libudev-dev
+sudo apt-get install mpi-default-dev openmpi-bin openmpi-common  
+sudo apt-get install libflann1.8 libflann-dev
+sudo apt-get install libeigen3-dev
+sudo apt-get install libboost-all-dev
+sudo apt-get install libvtk5.10-qt4 libvtk5.10 libvtk5-dev
+sudo apt-get install libqhull* libgtest-dev
+sudo apt-get install freeglut3-dev pkg-config
+sudo apt-get install libxmu-dev libxi-dev 
+sudo apt-get install mono-complete
+sudo apt-get install qt-sdk openjdk-8-jdk openjdk-8-jre
+sudo apt-get install qtbase5-dev
+sudo apt-get install qtdeclarative5-dev
+
+3.
+cmake  -D CMAKE_BUILD_TYPE=None  -D BUILD_GPU=ON  -D BUILD_apps=ON  -D BUILD_examples=ON .  
+make -j2  
+sudo make install
+
+#####配置pcl库
+依赖
+     sudo apt-get update
+     sudo apt-get install git build-essential linux-libc-dev
+     sudo apt-get install cmake cmake-gui 
+     sudo apt-get install libusb-1.0-0-dev libusb-dev libudev-dev
+     sudo apt-get install mpi-default-dev openmpi-bin openmpi-common  
+     sudo apt-get install libflann1.8 libflann-dev
+     sudo apt-get install libeigen3-dev
+     sudo apt-get install libboost-all-dev
+     sudo apt-get install libvtk5.10-qt4 libvtk5.10 libvtk5-dev
+     sudo apt-get install libqhull* libgtest-dev
+     sudo apt-get install freeglut3-dev pkg-config
+     sudo apt-get install libxmu-dev libxi-dev 
+     sudo apt-get install mono-complete
+     sudo apt-get install qt-sdk openjdk-8-jdk openjdk-8-jre
+
+git clone https://github.com/PointCloudLibrary/pcl.git
+
+     cd pcl
+     mkdir release
+     cd release
+     cmake -DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_PREFIX=/usr \
+           -DBUILD_GPU=ON -DBUILD_apps=ON -DBUILD_examples=ON \
+           -DCMAKE_INSTALL_PREFIX=/usr ..    
+     make
+	 sudo make install
+
+CMakeLists.txt
+
+find_package(PCL 1.8 REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
+
